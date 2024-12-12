@@ -59,7 +59,6 @@ class _TodosPageState extends State<TodosPage> {
   @override
   void initState() {
     super.initState();
-
     fetchTodos();
   }
 
@@ -71,7 +70,6 @@ class _TodosPageState extends State<TodosPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-       
         body: FutureBuilder<List<Todo>>(
           future: futureTodos,
           builder: (context, snapshot) {
@@ -102,56 +100,70 @@ class _TodosPageState extends State<TodosPage> {
                             DateTime.fromMillisecondsSinceEpoch(
                                 todo.updatedAt ?? todo.createdAt));
 
-                        return ListTile(
-                          title: Text(
-                            todo.title,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                        return Card(
+                          margin: const EdgeInsets.symmetric(horizontal: 16),
+                          elevation: 4,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          subtitle: Text(subtitle),
-                          trailing: IconButton(
+                          child: ListTile(
+                            contentPadding: const EdgeInsets.all(16),
+                            title: Text(
+                              todo.title,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                            subtitle: Text(subtitle),
+                            trailing: IconButton(
                               onPressed: () async {
-                                await todoDB
-                                    .delete(todo.id);
+                                await todoDB.delete(todo.id);
                                 fetchTodos();
                               },
                               icon: const Icon(
                                 Icons.delete,
                                 color: Colors.red,
-                              )),
-                          onTap: () {
-                            showDialog(
+                              ),
+                            ),
+                            onTap: () {
+                              showDialog(
                                 context: context,
                                 builder: (Context) => CreateTodoWidget(
-                                      todo: todo,
-                                      onSubmit: (title) async {
-                                        await todoDB.update(
-                                            id: todo.id,
-                                            title:
-                                                title); 
-                                        fetchTodos(); 
-                                        if (!mounted) return;
-                                        Navigator.of(context).pop();
-                                      },
-                                    ));
-                          },
+                                  todo: todo,
+                                  onSubmit: (title) async {
+                                    await todoDB.update(
+                                      id: todo.id,
+                                      title: title,
+                                    );
+                                    fetchTodos();
+                                    if (!mounted) return;
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              );
+                            },
+                          ),
                         );
-                      });
+                      },
+                    );
             }
           },
         ),
         floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.add),
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (_) => CreateTodoWidget(
-                  onSubmit: (title) async {
-                    await todoDB.create(title: title);
-                    fetchTodos();
-                    Navigator.of(context).pop();
-                  },
-                ),
-              );
-            }),
+          child: const Icon(Icons.add),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (_) => CreateTodoWidget(
+                onSubmit: (title) async {
+                  await todoDB.create(title: title);
+                  fetchTodos();
+                  Navigator.of(context).pop();
+                },
+              ),
+            );
+          },
+        ),
       );
 }

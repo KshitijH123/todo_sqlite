@@ -118,8 +118,37 @@ class _TodosPageState extends State<TodosPage> {
                             subtitle: Text(subtitle),
                             trailing: IconButton(
                               onPressed: () async {
-                                await todoDB.delete(todo.id);
-                                fetchTodos();
+                                bool? confirmed = await showDialog<bool>(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('Confirm Delete'),
+                                      content: const Text(
+                                          'Are you sure you want to delete this todo?'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .pop(false); 
+                                          },
+                                          child: const Text('Cancel'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .pop(true);
+                                          },
+                                          child: const Text('Confirm'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+
+                                if (confirmed == true) {
+                                  await todoDB.delete(todo.id);
+                                  fetchTodos(); 
+                                }
                               },
                               icon: const Icon(
                                 Icons.delete,

@@ -122,7 +122,9 @@ class _TodosPageState extends State<TodosPage> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      title: const Text('Confirm Delete'),
+                                      title: const Text('Confirm Delete',
+                                      style: TextStyle(fontSize: 28,fontWeight: FontWeight.w500),
+                                      ),
                                       content: const Text(
                                           'Are you sure you want to delete this todo?'),
                                       actions: [
@@ -152,7 +154,7 @@ class _TodosPageState extends State<TodosPage> {
                               },
                               icon: const Icon(
                                 Icons.delete,
-                                color: Colors.red,
+                                color: Color.fromARGB(255, 235, 50, 36),
                               ),
                             ),
                             onTap: () {
@@ -180,7 +182,6 @@ class _TodosPageState extends State<TodosPage> {
           },
         ),
         floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
           onPressed: () {
             showDialog(
               context: context,
@@ -193,6 +194,8 @@ class _TodosPageState extends State<TodosPage> {
               ),
             );
           },
+          backgroundColor: const Color.fromARGB(255, 140, 198, 245),
+          child: const Icon(Icons.add,size: 28),
         ),
       );
 }

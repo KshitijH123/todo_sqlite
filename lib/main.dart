@@ -98,7 +98,7 @@ class _TodosPageState extends State<TodosPage> {
                         final todo = todos[index];
                         final subtitle = DateFormat('yyyy/MM/dd').format(
                             DateTime.fromMillisecondsSinceEpoch(
-                                todo.updatedAt ?? todo.createdAt));
+                                todo.updatedAt));
 
                         return Card(
                           margin: const EdgeInsets.symmetric(horizontal: 16),

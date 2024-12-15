@@ -11,14 +11,13 @@ class Todo {
     required this.updatedAt,
   });
 
-  // Create a Todo object from the database (e.g., from a Map or SQL result)
   factory Todo.fromSqliteDatabase(Map<String, dynamic> data) {
     return Todo(
-      id: data['id'], // Make sure this matches the column name in the database
+      id: data['id'], 
       title: data['title'],
       createdAt: data['created_at'],
       updatedAt: data['updated_at'] ??
-          data['created_at'], // Handle the case where updatedAt may be null
+          data['created_at'], 
     );
   }
 }

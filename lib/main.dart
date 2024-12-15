@@ -194,7 +194,7 @@ class _TodosPageState extends State<TodosPage> {
               ),
             );
           },
-          backgroundColor: const Color.fromARGB(255, 140, 198, 245),
+          backgroundColor: Color.fromARGB(255, 137, 197, 246),
           child: const Icon(Icons.add,size: 28),
         ),
       );

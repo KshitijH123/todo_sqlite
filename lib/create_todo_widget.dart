@@ -17,12 +17,12 @@ class CreateTodoWidget extends StatefulWidget {
 
 class _CreateTodoWidgetState extends State<CreateTodoWidget> {
   final controller = TextEditingController();
-  final formKey = GlobalKey<FormState>(); // Corrected FormState spelling
+  final formKey = GlobalKey<FormState>(); 
 
   @override
   void initState() {
     super.initState();
-    controller.text = widget.todo?.title ?? ''; // Added null-aware operator
+    controller.text = widget.todo?.title ?? ''; 
   }
 
   @override
